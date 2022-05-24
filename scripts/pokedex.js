@@ -12,10 +12,10 @@ export default class Pokedex{
     }
     update(){
         console.log('Pokedex Update')
-        this.updatePokeDexDOM()
     }
     draw(){
         console.log('Pokedex Draw')
+        this.drawDOMheader();
     }
     setActivePokemon(pokemon){
         this.activePokemon = pokemon;
@@ -35,18 +35,18 @@ export default class Pokedex{
         this.DOMheader = document.createElement('div')
         //Create Header elements
         this.DOMtitle = document.createElement('p');
+        this.DOMtitleSpan = document.createElement('span');
         //Append Header elements
+        this.DOMheader.appendChild(this.DOMtitle);
         //-----POKEDEX BODY----
         this.DOMbody = document.createElement('div')
         //Create Body elements
         //Append body elements
         //-----POKEDEX FOOTER----
         this.DOMfooter = document.createElement('div')
-        
         //Create Footer Elements
-
         //Append Footer elements
-        //APPEND ELEMENTS TO MAIN CONTAINER
+        //APPEND HEADER BODY AND FOOTER TO MAIN CONTAINER
         this.DOMcontainer.appendChild(this.DOMheader);
         this.DOMcontainer.appendChild(this.DOMbody);
         this.DOMcontainer.appendChild(this.DOMfooter);
@@ -74,22 +74,41 @@ export default class Pokedex{
         this.DOMcontainer.style.color = '#F7CD46';
     }
     setDOMheaderStyles(){
-        this.DOMheader.style.backgroundColor = 'yellow';
         this.DOMheader.style.height = '10%';
         this.DOMheader.style.width = '100%';
+        this.DOMheader.style.padding = '.5rem';
+        this.DOMheader.style.border = 'dashed';
+        this.DOMheader.style.borderColor = '#F7CD46';
+        this.DOMheader.style.borderTopLeftRadius = '1rem';
+        this.DOMheader.style.borderTopRightRadius = '1rem';
+        this.DOMheader.style.textTransform = 'uppercase';
+        this.DOMheader.style.fontWeight = '800';
+
+        this.DOMtitle.style.border = 'solid';
+        this.DOMtitle.style.borderTop = 'none';
+        this.DOMtitle.style.borderColor = '#4070B2';
+        this.DOMtitle.style.borderRadius = '1rem';
+        this.DOMtitle.style.borderTopLeftRadius = '0';
+        this.DOMtitle.style.borderTopRightRadius = '0';
+        this.DOMtitle.style.marginTop = '.5rem';
     }
     setDOMbodyStyles(){
         this.DOMbody.style.backgroundColor = 'pink';
         this.DOMbody.style.width = '100%';
         this.DOMbody.style.height='80%';
+        this.DOMheader.style.padding = '.5rem'
+
     }
     setDOMfooterStyles(){
         this.DOMfooter.style.backgroundColor ='blue';
         this.DOMfooter.style.marginTop = 'auto';
         this.DOMfooter.style.width = '100%';
         this.DOMfooter.style.height = '10%';
+        this.DOMheader.style.padding = '.5rem'
     }
-    updatePokeDexDOM(){
-         this.DOMtitle.innerText = this.title;
+    drawDOMheader(){
+        this.DOMtitle.innerText = 'Pokédex of: ';
+        this.DOMtitleSpan.innerText = this.ownername;
+        this.DOMtitle.appendChild(this.DOMtitleSpan);
     }
 }
