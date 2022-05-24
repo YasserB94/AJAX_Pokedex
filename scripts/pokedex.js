@@ -1,36 +1,41 @@
-export default class Pokedex{
-    constructor(DOMparent,ownername='anonymous'){
+export default class Pokedex {
+    constructor(DOMparent, ownername = 'anonymous') {
         this.DOMparent = DOMparent;
-        this.pokemon =[];
-        this.activePokemon = this.pokemon[this.pokemon.length];
+        this.pokemon = [];
         this.ownername = ownername;
         this.title = `Pokédex of: ${this.ownername}`;
         this.init();
+        this.currentActivePokemonIndex = 0;
+        this.previousActivePokemonIndex = 0;
     }
-    init(){
+    init() {
         this.createPokedexDOM();
         this.setDOMStyles();
     }
-    update(){
-        console.log('Pokedex Update')
+    update() {
+        this.updateDisplayedPokemon();
     }
-    draw(){
-        console.log('Pokedex Draw')
+    draw() {
         this.drawDOMheader();
         this.drawDOMBody();
         this.drawDOMfooter();
     }
-    setActivePokemon(pokemon){
+    updateDisplayedPokemon(){
+        if(this.pokemon.length>this.previousActivePokemonIndex){
+            this.currentActivePokemonIndex = this.pokemon.length-1;
+        }
+    }
+    setActivePokemon(pokemon) {
         this.activePokemon = pokemon;
         this.pokemon.push(pokemon);
     }
-    getActivePokemon(){
+    getActivePokemon() {
         return this.activePokemon;
     }
-    addPokemon(pokemon){
+    addPokemon(pokemon) {
         this.pokemon.push(pokemon);
     }
-    createPokedexDOM(){
+    createPokedexDOM() {
         //MAIN CONTAINER
         this.DOMcontainer = document.createElement('div');
 
@@ -58,8 +63,16 @@ export default class Pokedex{
         //-----POKEDEX FOOTER----
         this.DOMfooter = document.createElement('div')
         //Create Footer Elements
+        this.DOMfooterPdexControlsContainer = document.createElement('div');
+        this.DOMpdexControlPokemonSearchField = document.createElement('input');
+        this.DOMpdexControlPokemonSearchField.setAttribute('id','pdex-fieldSearch')
+        this.DOMpdexControlPokemonSearchButton = document.createElement('button');
+        this.DOMpdexControlPokemonSearchButton.setAttribute('id','pdex-btnSearch')
         this.DOMfooterText = document.createElement('p');
         //Append Footer elements
+        this.DOMfooterPdexControlsContainer.appendChild(this.DOMpdexControlPokemonSearchField);
+        this.DOMfooterPdexControlsContainer.appendChild(this.DOMpdexControlPokemonSearchButton);
+        this.DOMfooter.appendChild(this.DOMfooterPdexControlsContainer);
         this.DOMfooter.appendChild(this.DOMfooterText);
         //APPEND HEADER BODY AND FOOTER TO MAIN CONTAINER
         this.DOMcontainer.appendChild(this.DOMheader);
@@ -68,18 +81,19 @@ export default class Pokedex{
         //APPEND MAIN CONTAINER TO PARENT
         this.DOMparent.appendChild(this.DOMcontainer)
     }
-    setDOMStyles(){
+    setDOMStyles() {
         this.setDOMcontainerStyles();
         this.setDOMheaderStyles();
         this.setDOMbodyStyles();
         this.setDOMfooterStyles();
     }
-    setDOMcontainerStyles(){
+    setDOMcontainerStyles() {
         this.DOMcontainer.style.padding = '1rem';
         this.DOMcontainer.style.width = '100%';
         this.DOMcontainer.style.height = '80%';
-        this.DOMcontainer.style.marginBottom = '10%';
-        this.DOMcontainer.style.marginTop = '10%';
+        this.DOMcontainer.style.minHeight = '80vh';
+        // this.DOMcontainer.style.marginBottom = '10%';
+        // this.DOMcontainer.style.marginTop = '10%';
         this.DOMcontainer.style.padding = '1rem';
         this.DOMcontainer.style.backgroundColor = '#C82D35';
         this.DOMcontainer.style.textAlign = 'center';
@@ -88,7 +102,7 @@ export default class Pokedex{
         this.DOMcontainer.style.borderColor = '#4070B2';
         this.DOMcontainer.style.color = '#F7CD46';
     }
-    setDOMheaderStyles(){
+    setDOMheaderStyles() {
         this.DOMheader.style.height = '10%';
         this.DOMheader.style.width = '100%';
         this.DOMheader.style.padding = '.5rem';
@@ -98,7 +112,6 @@ export default class Pokedex{
         this.DOMheader.style.borderTopRightRadius = '1rem';
         this.DOMheader.style.textTransform = 'uppercase';
         this.DOMheader.style.fontWeight = '800';
-
         this.DOMtitle.style.border = 'solid';
         this.DOMtitle.style.borderTop = 'none';
         this.DOMtitle.style.borderColor = '#4070B2';
@@ -107,10 +120,11 @@ export default class Pokedex{
         this.DOMtitle.style.borderTopRightRadius = '100%';
         this.DOMtitle.style.marginTop = '.5rem';
     }
-    setDOMbodyStyles(){
+    setDOMbodyStyles() {
         // this.DOMbody.style.backgroundColor = 'pink';
         this.DOMbody.style.width = '100%';
-        this.DOMbody.style.height='80%';
+        this.DOMbody.style.height = '60%';
+        this.DOMbody.style.minHeight = '60%';
         this.DOMbody.style.maxHeight = '80%';
         this.DOMbody.style.padding = '.5rem';
         this.DOMbody.style.borderLeft = 'dashed';
@@ -118,29 +132,39 @@ export default class Pokedex{
         this.DOMbody.style.backgroundColor = 'green';
         this.DOMbodyPokemonImage.style.height = '50%';
     }
-    setDOMfooterStyles(){
+    setDOMfooterStyles() {
         // this.DOMfooter.style.backgroundColor ='blue';
         this.DOMfooter.style.marginTop = 'auto';
         this.DOMfooter.style.width = '100%';
-        this.DOMfooter.style.height = '10%';
+        this.DOMfooter.style.height = '30%';
         this.DOMfooter.style.padding = '.5rem'
         this.DOMfooter.style.border = 'dashed';
         this.DOMfooter.style.borderBottomLeftRadius = '1rem';
         this.DOMfooter.style.borderBottomRightRadius = '1rem';
+
+        this.DOMfooterPdexControlsContainer.style.height = '90%';
+        this.DOMfooterPdexControlsContainer.style.width = '100%';
+        this.DOMpdexControlPokemonSearchButton.style.marginLeft = '1%';
     }
-    drawDOMheader(){
+    drawDOMheader() {
         this.DOMtitle.innerText = 'Pokédex of: ';
         this.DOMtitleSpan.innerText = this.ownername;
         this.DOMtitle.appendChild(this.DOMtitleSpan);
     }
-    drawDOMBody(){
-        this.DOMbodyPokemonImage.src = './assets/Bulba.png';
-        this.DOMbodyPokemonName.innerText = 'Bulba';
-        this.DOMbodyPokemonMoves.innerText = 'Moveset';
-        this.DOMbodyPokemonPrevolution.innerText = 'prevoluttion';
-        this.DOMbodyPokemonEvolution.innerText = 'evolution';
+    drawDOMBody() {
+        if(this.pokemon[this.currentActivePokemonIndex]!=undefined){
+        this.DOMbodyPokemonImage.src = this.pokemon[this.currentActivePokemonIndex].getSprite();
+        this.DOMbodyPokemonName.innerText = this.pokemon[this.currentActivePokemonIndex].getName();
+        this.DOMbodyPokemonMoves.innerText = this.pokemon[this.currentActivePokemonIndex].getMoves();
+        this.DOMbodyPokemonPrevolution.innerText = this.pokemon[this.currentActivePokemonIndex].getPrevolution();
+        this.DOMbodyPokemonEvolution.innerText = this.pokemon[this.currentActivePokemonIndex].getEvolution();
     }
-    drawDOMfooter(){
-        this.DOMfooterText.innerText = `Everyone loves Bulba, that's why he is number one!` 
+    }
+    drawDOMfooter() {
+        this.DOMpdexControlPokemonSearchButton.innerText = 'search';
+        this.DOMfooterText.innerText = `Everyone loves Bulba, that's why he is number one!`
+    }
+    getControls(){
+        return this.DOMfooterPdexControlsContainer;
     }
 }
