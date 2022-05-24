@@ -2,6 +2,7 @@ export default class Pokedex{
     constructor(DOMparent,ownername='anonymous'){
         this.DOMparent = DOMparent;
         this.pokemon =[];
+        this.activePokemon = this.pokemon[this.pokemon.length];
         this.ownername = ownername;
         this.title = `Pokédex of: ${this.ownername}`;
         this.init();
@@ -16,6 +17,7 @@ export default class Pokedex{
     draw(){
         console.log('Pokedex Draw')
         this.drawDOMheader();
+        this.drawDOMBody();
     }
     setActivePokemon(pokemon){
         this.activePokemon = pokemon;
@@ -39,9 +41,19 @@ export default class Pokedex{
         //Append Header elements
         this.DOMheader.appendChild(this.DOMtitle);
         //-----POKEDEX BODY----
-        this.DOMbody = document.createElement('div')
+        this.DOMbody = document.createElement('div');
         //Create Body elements
+        this.DOMbodyPokemonImage = document.createElement('img');
+        this.DOMbodyPokemonName = document.createElement('p');
+        this.DOMbodyPokemonMoves = document.createElement('p');
+        this.DOMbodyPokemonPrevolution = document.createElement('p');
+        this.DOMbodyPokemonEvolution = document.createElement('p');
         //Append body elements
+        this.DOMbody.appendChild(this.DOMbodyPokemonImage);
+        this.DOMbody.appendChild(this.DOMbodyPokemonName);
+        this.DOMbody.appendChild(this.DOMbodyPokemonMoves);
+        this.DOMbody.appendChild(this.DOMbodyPokemonPrevolution);
+        this.DOMbody.appendChild(this.DOMbodyPokemonEvolution);
         //-----POKEDEX FOOTER----
         this.DOMfooter = document.createElement('div')
         //Create Footer Elements
@@ -88,16 +100,20 @@ export default class Pokedex{
         this.DOMtitle.style.borderTop = 'none';
         this.DOMtitle.style.borderColor = '#4070B2';
         this.DOMtitle.style.borderRadius = '1rem';
-        this.DOMtitle.style.borderTopLeftRadius = '0';
-        this.DOMtitle.style.borderTopRightRadius = '0';
+        this.DOMtitle.style.borderTopLeftRadius = '100%';
+        this.DOMtitle.style.borderTopRightRadius = '100%';
         this.DOMtitle.style.marginTop = '.5rem';
     }
     setDOMbodyStyles(){
-        this.DOMbody.style.backgroundColor = 'pink';
+        // this.DOMbody.style.backgroundColor = 'pink';
         this.DOMbody.style.width = '100%';
         this.DOMbody.style.height='80%';
-        this.DOMheader.style.padding = '.5rem'
-
+        this.DOMbody.style.maxHeight = '80%';
+        this.DOMbody.style.padding = '.5rem';
+        this.DOMbody.style.borderLeft = 'dashed';
+        this.DOMbody.style.borderRight = 'dashed';
+        this.DOMbody.style.backgroundColor = 'green';
+        this.DOMbodyPokemonImage.style.height = '50%';
     }
     setDOMfooterStyles(){
         this.DOMfooter.style.backgroundColor ='blue';
@@ -110,5 +126,12 @@ export default class Pokedex{
         this.DOMtitle.innerText = 'Pokédex of: ';
         this.DOMtitleSpan.innerText = this.ownername;
         this.DOMtitle.appendChild(this.DOMtitleSpan);
+    }
+    drawDOMBody(){
+        this.DOMbodyPokemonImage.src = './assets/Bulba.png';
+        this.DOMbodyPokemonName.innerText = 'Bulba';
+        this.DOMbodyPokemonMoves.innerText = 'Moveset';
+        this.DOMbodyPokemonPrevolution.innerText = 'prevoluttion';
+        this.DOMbodyPokemonEvolution.innerText = 'evolution';
     }
 }
