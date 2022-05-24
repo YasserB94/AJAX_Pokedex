@@ -1,17 +1,17 @@
 // getPokemon(1)
 import Pokemon from "./scripts/pokemon.js";
 import Pokedex from './scripts/pokedex.js';
-let myPokeDex = new Pokedex();
+const main = document.getElementById('main')
+let myPokeDex = new Pokedex(main,'yasser');
 
-createPokemon(2)
-createPokemon(5)
-createPokemon(6)
+// createPokemon(2)
+// createPokemon(5)
+// createPokemon(6)
 async function fetchPokemon(id) {
     let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
     const response = await fetch(url);
     const data = await response.json();
     return data;
-
 }
 async function fetchPokemonPrevolutions(pokemonName) {
     //Go to pokemon, get species, get species url, go to species url, get evolution chain, 
@@ -25,10 +25,8 @@ async function fetchPokemonEvolutions(pokemonName) {
     const response = await fetch(url);
     const data = await response.json();
     let evoChainURL = await data.evolution_chain.url;
-    console.log(evoChainURL)
     const evoResponse = await fetch(evoChainURL);
     const evoData = await evoResponse.json();
-    console.log(evoData)
     return evoData;
 }
 async function createPokemon(id) {
@@ -57,10 +55,11 @@ async function createPokemon(id) {
     let pokemon = new Pokemon(pokemonID, pokemonName, moves, pokemonSprite, pokemonPrevolution, pokemonEvolution)
     myPokeDex.addPokemon(pokemon)
 }
-setInterval(showPokedex,5000)
+showPokedex()
+// setInterval(showPokedex,5000)
 function showPokedex(){
-    myPokeDex.showPokemon();
+    myPokeDex.update();
+    myPokeDex.draw()
 }
 
-
-//POKEDE
+//POKEDEX
