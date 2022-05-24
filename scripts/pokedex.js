@@ -18,6 +18,7 @@ export default class Pokedex{
         console.log('Pokedex Draw')
         this.drawDOMheader();
         this.drawDOMBody();
+        this.drawDOMfooter();
     }
     setActivePokemon(pokemon){
         this.activePokemon = pokemon;
@@ -57,7 +58,9 @@ export default class Pokedex{
         //-----POKEDEX FOOTER----
         this.DOMfooter = document.createElement('div')
         //Create Footer Elements
+        this.DOMfooterText = document.createElement('p');
         //Append Footer elements
+        this.DOMfooter.appendChild(this.DOMfooterText);
         //APPEND HEADER BODY AND FOOTER TO MAIN CONTAINER
         this.DOMcontainer.appendChild(this.DOMheader);
         this.DOMcontainer.appendChild(this.DOMbody);
@@ -116,11 +119,14 @@ export default class Pokedex{
         this.DOMbodyPokemonImage.style.height = '50%';
     }
     setDOMfooterStyles(){
-        this.DOMfooter.style.backgroundColor ='blue';
+        // this.DOMfooter.style.backgroundColor ='blue';
         this.DOMfooter.style.marginTop = 'auto';
         this.DOMfooter.style.width = '100%';
         this.DOMfooter.style.height = '10%';
-        this.DOMheader.style.padding = '.5rem'
+        this.DOMfooter.style.padding = '.5rem'
+        this.DOMfooter.style.border = 'dashed';
+        this.DOMfooter.style.borderBottomLeftRadius = '1rem';
+        this.DOMfooter.style.borderBottomRightRadius = '1rem';
     }
     drawDOMheader(){
         this.DOMtitle.innerText = 'Pokédex of: ';
@@ -133,5 +139,8 @@ export default class Pokedex{
         this.DOMbodyPokemonMoves.innerText = 'Moveset';
         this.DOMbodyPokemonPrevolution.innerText = 'prevoluttion';
         this.DOMbodyPokemonEvolution.innerText = 'evolution';
+    }
+    drawDOMfooter(){
+        this.DOMfooterText.innerText = `Everyone loves Bulba, that's why he is number one!` 
     }
 }
