@@ -11,9 +11,7 @@ export default class Pokemon {
     init(){
         this.createDOMElements();
         this.setDOMElements();
-    }
-    limitMoveSet(limit){
-        
+        this.setDOMStyles();
     }
     createDOMElements(){
         this.DOMpokemonContainer = document.createElement('div');
@@ -40,6 +38,12 @@ export default class Pokemon {
         this.DOMpokemonContainer.appendChild(this.DOMpokemonMoves);
         this.DOMpokemonContainer.appendChild(this.DOMpokemonPrevolutions)
         this.DOMpokemonContainer.appendChild(this.DOMpokemonEvolutions)
+    }
+    setDOMStyles(){
+        this.DOMpokemonContainer.style.display = 'flex';
+        this.DOMpokemonContainer.style.flexDirection = 'column';
+        this.DOMpokemonContainer.style.backgroundColor = 'pink';
+        this.DOMpokemonContainer.style.textAlign = 'center';
     }
     getDOMElements(){
         return this.DOMpokemonContainer;
