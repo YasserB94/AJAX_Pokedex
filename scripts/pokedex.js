@@ -1,12 +1,23 @@
-
 export default class Pokedex{
-    constructor(htmlParent){
-        this.htmlParent = htmlParent;
+    constructor(){
+        this.pokemon =[];
     }
-    setPokemonByID(id){
-        this.pokemon = new Pokemon(id) 
+    setActivePokemon(pokemon){
+        this.activePokemon = pokemon;
+        this.pokemon.push(pokemon);
     }
-    setPokemonByName(name){
-        this.pokemon = new Pokemon(name)
+    getActivePokemon(){
+        return this.activePokemon;
+    }
+    addPokemon(pokemon){
+        this.pokemon.push(pokemon);
+    }
+    showPokemon(){
+        this.pokemon.forEach(pokemon => {
+            let main = document.getElementById('main');
+            main.appendChild(pokemon.getDOMElements())
+            
+            
+        });
     }
 }
