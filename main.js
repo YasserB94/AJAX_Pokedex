@@ -1,12 +1,24 @@
 // getPokemon(1)
 import Pokemon from "./scripts/pokemon.js";
 import Pokedex from './scripts/pokedex.js';
-const main = document.getElementById('main')
+const main = document.getElementById('poke-container');
 let myPokeDex = new Pokedex(main,'yasser');
-
+const pdexControlBTNSearch = document.getElementById('pdex-btnSearch')
+const pdexControlINPUTSearch = document.getElementById('pdex-fieldSearch')
+pdexControlBTNSearch.addEventListener('click',()=>{
+    const searchValue = pdexControlINPUTSearch.value;
+    createPokemon(searchValue);
+})
 // createPokemon(2)
 // createPokemon(5)
 // createPokemon(6)
+
+showPokedex()
+setInterval(showPokedex,1000)
+function showPokedex(){
+    myPokeDex.update();
+    myPokeDex.draw()
+}
 async function fetchPokemon(id) {
     let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
     const response = await fetch(url);
@@ -52,14 +64,7 @@ async function createPokemon(id) {
     } catch {
         pokemonEvolution = null;
     }
-    let pokemon = new Pokemon(pokemonID, pokemonName, moves, pokemonSprite, pokemonPrevolution, pokemonEvolution)
+    let pokemon = new Pokemon(pokemonID, pokemonName, moves, pokemonSprite, pokemonPrevolution, pokemonEvolution);
     myPokeDex.addPokemon(pokemon)
 }
-showPokedex()
-// setInterval(showPokedex,5000)
-function showPokedex(){
-    myPokeDex.update();
-    myPokeDex.draw()
-}
-
 //POKEDEX
