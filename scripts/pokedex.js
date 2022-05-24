@@ -16,8 +16,6 @@ export default class Pokedex{
     }
     draw(){
         console.log('Pokedex Draw')
-    
-
     }
     setActivePokemon(pokemon){
         this.activePokemon = pokemon;
@@ -30,15 +28,36 @@ export default class Pokedex{
         this.pokemon.push(pokemon);
     }
     createPokedexDOM(){
+        //MAIN CONTAINER
         this.DOMcontainer = document.createElement('div');
+
+        //-----POKEDEX HEADER----
+        this.DOMheader = document.createElement('div')
+        //Create Header elements
         this.DOMtitle = document.createElement('p');
-        this.DOMpokemonContainer = document.createElement('div');
-        this.DOMcontainer.appendChild(this.DOMtitle);
+        //Append Header elements
+        //-----POKEDEX BODY----
+        this.DOMbody = document.createElement('div')
+        //Create Body elements
+        //Append body elements
+        //-----POKEDEX FOOTER----
+        this.DOMfooter = document.createElement('div')
+        
+        //Create Footer Elements
+
+        //Append Footer elements
+        //APPEND ELEMENTS TO MAIN CONTAINER
+        this.DOMcontainer.appendChild(this.DOMheader);
+        this.DOMcontainer.appendChild(this.DOMbody);
+        this.DOMcontainer.appendChild(this.DOMfooter);
+        //APPEND MAIN CONTAINER TO PARENT
         this.DOMparent.appendChild(this.DOMcontainer)
     }
     setDOMStyles(){
         this.setDOMcontainerStyles();
-        this.setDOMtitleStyles();
+        this.setDOMheaderStyles();
+        this.setDOMbodyStyles();
+        this.setDOMfooterStyles();
     }
     setDOMcontainerStyles(){
         this.DOMcontainer.style.padding = '1rem';
@@ -54,11 +73,21 @@ export default class Pokedex{
         this.DOMcontainer.style.borderColor = '#4070B2';
         this.DOMcontainer.style.color = '#F7CD46';
     }
-    setDOMtitleStyles(){
-        this.DOMtitle.style.textTransform = 'uppercase';
-        this.DOMtitle.style.borderBottom = 'solid';
-        this.DOMtitle.style.borderBlockColor = '#4070B2';
-        this.DOMtitle.style.borderRadius = '10%';
+    setDOMheaderStyles(){
+        this.DOMheader.style.backgroundColor = 'yellow';
+        this.DOMheader.style.height = '10%';
+        this.DOMheader.style.width = '100%';
+    }
+    setDOMbodyStyles(){
+        this.DOMbody.style.backgroundColor = 'pink';
+        this.DOMbody.style.width = '100%';
+        this.DOMbody.style.height='80%';
+    }
+    setDOMfooterStyles(){
+        this.DOMfooter.style.backgroundColor ='blue';
+        this.DOMfooter.style.marginTop = 'auto';
+        this.DOMfooter.style.width = '100%';
+        this.DOMfooter.style.height = '10%';
     }
     updatePokeDexDOM(){
          this.DOMtitle.innerText = this.title;
